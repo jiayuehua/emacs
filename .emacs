@@ -1,0 +1,338 @@
+(xterm-mouse-mode 1)
+(setq dired-recursive-deletes t) ; 可以递归的删除目录
+(setq dired-recursive-copies t) ; 可以递归的进行拷贝
+(require 'dired-x) ; 有些特殊的功能
+(global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
+(ansi-color-for-comint-mode-on)
+;(setq dired-guess-shell-alist-user
+;(list
+;(list "\\.chm$" "xchm")
+;(list "\\.rm$" "gmplayer")
+;(list "\\.rmvb$" "gmplayer")
+;(list "\\.avi$" "gmplayer")
+;(list "\\.asf$" "gmplayer")
+;(list "\\.wmv$" "gmplayer")
+;(list "\\.htm$" "w3m")
+;(list "\\.html$" "w3m")
+;(list "\\.mpg$" "gmplayer")
+;)
+;) ; 设置一些文件的默认打开方式，此功能必须在(require 'dired-x)之后
+ 
+;; don't understand
+;; open those functions
+(put 'upcase-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'set-goal-column 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
+(global-linum-mode t)           ;;line number
+(global-set-key "\C-cc" 'remember) ;;remember text
+(winner-mode t)                    ;;remember window position
+(delete-selection-mode t)             ;; typed text replaces the selection if the selection is active
+; (global-set-key "\M-/" 'hippie-expand) 
+(add-to-list 'load-path "c:/Users/jiayuehua/Downloads/baidu/mysoftware/emacs-24.1/emacs-lisp")
+(put 'dired-find-alternate-file 'disabled nil) ;;not replace dired buffer
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+(global-set-key "\M-r" 'isearch-backward-regexp)
+(global-set-key "\M-s" 'isearch-forward-regexp)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
+ '(ede-project-directories (quote ("c:/Users/jiayuehua.DANGDANG" "G:/f/work/VC/tinyxml")))
+ '(org-agenda-files (quote ("~/d.org" "~/a.org" "~/c.org")))
+ '(safe-local-variable-values (quote ((folded-file . t)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "SystemWindow" :foreground "SystemWindowText" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "outline" :family "Courier New")))))
+;; save history desktop
+(desktop-save-mode 1)
+(setq savehist-file "~/.emacs.d/savehist.savehist")
+(savehist-mode 1)
+;; diary
+(diary)
+(appt-activate 1)  
+
+;; close sroll-bar tool-bar menu-bar
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+(global-set-key [f5] 'call-last-kbd-macro)
+
+(put 'dired-find-alternate-file 'disabled nil)
+(server-start)
+(put 'downcase-region 'disabled nil)
+(add-to-list 'load-path "/home/jiayuehua")
+;(require 'gmail)
+
+;(ffap-bindings)             
+; wang ying emacs configure file
+; session
+(require 'session)
+  (add-hook 'after-init-hook 'session-initialize)
+
+;ibuffer
+;(require 'ibuffer)                      
+;(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(require 'browse-kill-ring)
+(global-set-key [(control c)(k)] 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
+
+(require 'tabbar)
+(tabbar-mode)
+
+;;hide region
+(require 'hide-region)
+(global-set-key (kbd "C-c r") 'hide-region-hide)
+(global-set-key (kbd "C-c R") 'hide-region-unhide)
+
+;; hide lines
+(require 'hide-lines)
+(global-set-key (kbd "C-c l") 'hide-lines)
+(global-set-key (kbd "C-c L") 'show-all-invisible)
+
+;(require 'recentf)
+;(recentf-mode 1)
+;(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+;; swbuff prior:PgUp next:PgDn
+(require 'swbuff)
+(global-set-key [C-prior] 'swbuff-switch-to-previous-buffer)
+(global-set-key [C-next] 'swbuff-switch-to-next-buffer)
+(setq swbuff-exclude-buffer-regexps 
+     '("^ " "\\*.*\\*"))
+(setq swbuff-status-window-layout 'scroll)
+(setq swbuff-clear-delay 1)
+(setq swbuff-separator "|")
+(setq swbuff-window-min-text-height 1)
+
+;; match ( with )
+(global-set-key "%" 'match-paren)
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
+;; jump use C \.
+(global-set-key [(control ?\.)] 'ska-point-to-register)
+(global-set-key [(control ?\,)] 'ska-jump-to-register)
+(defun ska-point-to-register()
+  "Store cursorposition _fast_ in a register. 
+Use ska-jump-to-register to jump back to the stored 
+position."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (point-to-register 8))
+
+(defun ska-jump-to-register()
+  "Switches between current cursorposition and position
+that was stored with ska-point-to-register."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (let ((tmp (point-marker)))
+        (jump-to-register 8)
+        (set-register 8 tmp)))
+
+;; C-c a go-to-char
+(defun wy-go-to-char (n char)
+  "Move forward to Nth occurence of CHAR.
+Typing `wy-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR."
+  (interactive "p\ncGo to char: ")
+  (search-forward (string char) nil nil n)
+  (while (char-equal (read-char)
+		     char)
+    (search-forward (string char) nil nil n))
+  (setq unread-command-events (list last-input-event)))
+(define-key global-map (kbd "C-c a") 'wy-go-to-char)
+
+(setq visible-bell t)                   ;close bell when error happens
+(setq inhibit-startup-message t)        ;close initial message
+(setq mouse-yank-at-point t)            ;
+(setq column-number-mode t)             ;display column number
+(setq kill-ring-max 200)                ;set kill ring max to 200
+(setq default-fill-column 60)           ;set fill column to 60 
+
+(setq-default indent-tabs-mode nil)     ;Not use TAB indent
+(setq default-tab-width 8)
+(setq tab-stop-list ())
+(loop for x downfrom 40 to 1 do
+      (setq tab-stop-list (cons (* x 4) tab-stop-list)))
+(setq enable-recursive-minibuffers t)   ;recursive use minibuf
+(setq scroll-margin 3                   ;prevent scroll margin jump
+      scroll-conservatively 10000)
+
+(setq default-major-mode 'text-mode)    ;default major mode text-mode
+
+(show-paren-mode t)                     ;display another parenthese
+(setq show-paren-style 'parentheses)    
+
+(mouse-avoidance-mode 'animate)         ;mouse avoidance
+(setq frame-title-format "emacs@%b")
+(auto-image-file-mode)
+(global-font-lock-mode t)               ;syntax on
+
+(put 'LaTeX-hide-environment 'disabled nil)
+(setq dired-recursive-copies t)         ; 可以递归的进行拷贝
+(setq dired-recursive-deletes t)        ; 可以递归的删除目录
+(mapcar                                 ;set auto-mode-alist
+ (function (lambda (setting)
+	     (setq auto-mode-alist
+		   (cons setting auto-mode-alist))))
+ '(("\\.xml$".  sgml-mode)
+   ("\\\.bash" . sh-mode)
+   ("\\.rdf$".  sgml-mode)
+   ("\\.session" . emacs-lisp-mode)
+   ("\\.l$" . c-mode)
+   ("\\.css$" . css-mode)
+   ("\\.cfm$" . html-mode)
+   ("gnus" . emacs-lisp-mode)
+   ("\\.idl$" . idl-mode)))
+
+(setq user-full-name "jiayuehua")
+(setq user-mail-address "jiayuehua@gmail.com")
+
+;; (require 'ctypes)                       
+;; (ctypes-auto-parse-mode 1)
+;----------------jia----------
+(ansi-color-for-comint-mode-on)
+(xterm-mouse-mode 1)
+ 
+
+;; **********org mode 
+
+ ;; (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+ ;; (global-set-key "\C-cl" 'org-store-link)
+ ;; (global-set-key "\C-ca" 'org-agenda)
+ ;; (global-set-key "\C-cb" 'org-iswitchb)
+
+;; ^^^^^^^^^^org mode
+; (setq org-default-notes-file "~/.notes.org")
+ ;    (define-key global-map "\C-cc" 'org-capture)
+
+
+;;自动补全括号
+(defun my-c-mode-auto-pair ()
+  (interactive)
+  (make-local-variable 'skeleton-pair-alist)
+  (setq skeleton-pair-alist  '(
+                   (?` ?` _ "''")
+                   (?\( ?  _ " )")
+                   (?\[ ?  _ " ]")
+                   (?{ \n > _ \n ?} >)))
+  (setq skeleton-pair t)
+  (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "`") 'skeleton-pair-insert-maybe)
+  (local-set-key (kbd "[") 'skeleton-pair-insert-maybe))
+(add-hook 'c-mode-hook 'my-c-mode-auto-pair)
+(add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
+
+
+;(add-to-list 'load-path "/path/to/highlight-symbol")
+    (require 'highlight-symbol)
+    (global-set-key [(control f3)] 'highlight-symbol-at-point)
+    (global-set-key [f3] 'highlight-symbol-next)
+    (global-set-key [(shift f3)] 'highlight-symbol-prev)
+    (global-set-key [(meta f3)] 'highlight-symbol-prev)
+
+;; windmove   ************************
+    (require 'windmove) 
+    (windmove-default-keybindings) 
+
+    ;; modified from windmove-do-window-select
+    (defun windmove-do-swap-window (dir &optional arg window)
+      "Move the buffer to the window at direction DIR.
+    DIR, ARG, and WINDOW are handled as by `windmove-other-window-loc'.
+    If no window is at direction DIR, an error is signaled."
+      (let ((other-window (windmove-find-other-window dir arg window)))
+        (cond ((null other-window)
+               (error "No window %s from selected window" dir))
+              ((and (window-minibuffer-p other-window)
+                    (not (minibuffer-window-active-p other-window)))
+               (error "Minibuffer is inactive"))
+              (t
+               (let ( (old-buffer (window-buffer window)) )
+                 (set-window-buffer window (window-buffer other-window))
+                 (set-window-buffer other-window old-buffer)
+                 (select-window other-window))))))
+
+    (defun hsb-swap-buffer-up (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'up arg))
+
+    (defun hsb-swap-buffer-down (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'down arg))
+
+    (defun hsb-swap-buffer-left (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'left arg))
+
+    (defun hsb-swap-buffer-right (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'right arg))
+
+    (global-set-key (kbd "<C-up>")    'hsb-swap-buffer-up)
+    (global-set-key (kbd "<C-down>") 'hsb-swap-buffer-down)
+    (global-set-key (kbd "<C-left>")   'hsb-swap-buffer-left)
+    (global-set-key (kbd "<C-right>") 'hsb-swap-buffer-right)
+;; windmove ^^^^^^^^^^^^^^^^^^^^^^^
+
+(defun my-clear ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
+
+    (defun my-shell-hook ()
+      (local-set-key "\C-cl" 'my-clear))
+    (add-hook 'shell-mode-hook 'my-shell-hook)
+
+(require 'dired-x) ; 有些特殊的功能  ,! command on the fire
+(global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
+(require 'w32-browser)
+(eval-after-load "dired"
+'(define-key dired-mode-map [f4] (lambda ()
+(interactive)
+(w32-browser
+(dired-replace-in-string
+"/" "\\"
+(dired-get-filename))))))
+
+(require 'dired-isearch)
+
+;; Recommended keybindings:
+ (define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
+ (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
+ (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
+ (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
+;; ~/.emacs:
+       (require 'dired-view)
+;;To enable it by default,                
+;      (add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 
+;;Also, you could define keys to toggle it,
+      (define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle)
+;      (define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
+
+ (require 'dired-details)
+ (dired-details-install)
+(autoload 'nc "nc" "Emuliate MS-DOG file shell" t)
+
+(require 'sunrise-commander)
+(require 'sunrise-x-buttons)
