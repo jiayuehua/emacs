@@ -1,0 +1,4 @@
+By convention, a mail signature should be marked by a line whose
+contents are `-- '.  If your signature lacks this prefix, it is added
+for you.  The remainder of your signature should be no more than four
+lines.
