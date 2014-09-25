@@ -50,6 +50,9 @@
  '(c-basic-offset 4)
  '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
  '(ede-project-directories (quote ("c:/Users/jiayuehua.DANGDANG" "G:/f/work/VC/tinyxml")))
+ '(evil-auto-indent t)
+ '(evil-shift-width 2)
+ '(evil-want-C-u-scroll t)
  '(org-agenda-files (quote ("~/d.org" "~/a.org" "~/c.org")))
  '(safe-local-variable-values (quote ((folded-file . t)))))
 (custom-set-faces
@@ -79,7 +82,7 @@
 (add-to-list 'load-path "/home/jiayuehua")
 ;(require 'gmail)
 
-;(ffap-bindings)             
+(ffap-bindings)             
 ; wang ying emacs configure file
 ; session
 (require 'session)
@@ -244,6 +247,12 @@ occurence of CHAR."
 (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
 (add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
 
+ (defun align-repeat (start end regexp)
+    "Repeat alignment with respect to 
+     the given regular expression."
+    (interactive "r\nsAlign regexp: ")
+    (align-regexp start end 
+        (concat "\\(\\s-*\\)" regexp) 1 1 t))
 
 ;(add-to-list 'load-path "/path/to/highlight-symbol")
     (require 'highlight-symbol)
@@ -336,3 +345,36 @@ occurence of CHAR."
 
 (require 'sunrise-commander)
 (require 'sunrise-x-buttons)
+(require 'package)
+(push '("marmalade" . "http://marmalade-repo.org/packages/")
+      package-archives )
+(push '("melpa" . "http://melpa.milkbox.net/packages/")
+      package-archives)
+(package-initialize)
+; (require 'helm-config)    
+; (helm-mode 1)
+;; (require 'helm-config)                  
+;; (require 'helm-grep)
+
+;; ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+;; (global-set-key (kbd "C-c h") 'helm-command-prefix)
+;; (global-unset-key (kbd "C-x c"))
+
+;; ;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebihnd tab to do persistent action
+;; ;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+;; ;; (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+;; (when (executable-find "curl")
+;;   (setq helm-google-suggest-use-curl-p t))
+
+;; (setq helm-quick-update                     t ; do not display invisible candidates
+;;       helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+;;       helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
+;;       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+;;       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+;;       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+;;       helm-ff-file-name-history-use-recentf t)
+
+;; (helm-mode 1)
