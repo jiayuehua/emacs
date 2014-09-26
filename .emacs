@@ -1,20 +1,8 @@
-(setq dired-recursive-deletes t)
-(setq dired-recursive-copies t) 
+;;dired
+(setq dired-recursive-copies t)         ; 可以递归的进行拷贝
+(setq dired-recursive-deletes t)        ; 可以递归的删除目录
 (global-set-key "\C-x\C-j" 'dired-jump) 
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
-;(require 'csv-mode)			
-(xterm-mouse-mode 1)
-(setq dired-recursive-deletes t) ; 可以递归的删除目录
-(setq dired-recursive-copies t) ; 可以递归的进行拷贝
 (require 'dired-x) ; 有些特殊的功能
-(global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
-(ansi-color-for-comint-mode-on)
 ;(setq dired-guess-shell-alist-user
 ;(list
 ;(list "\\.chm$" "xchm")
@@ -28,6 +16,58 @@
 ;(list "\\.mpg$" "gmplayer")
 ;)
 ;) ; 设置一些文件的默认打开方式，此功能必须在(require 'dired-x)之后
+(global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
+(put 'dired-find-alternate-file 'disabled nil) ;;not replace dired buffer
+;; (require 'dired-x) ; 有些特殊的功能  ,! command on the fire
+;; (global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
+
+;; (require 'w32-browser)
+;; (eval-after-load "dired"
+;; '(define-key dired-mode-map [f4] (lambda ()
+;; (interactive)
+;; (w32-browser
+;; (dired-replace-in-string
+;; "/" "\\"
+;; (dired-get-filename))))))
+
+;; (require 'dired-isearch)
+; (define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
+; (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
+; (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
+; (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
+;; ~/.emacs:
+        ;; (require 'dired-view)           
+;;To enable it by default,                
+;      (add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 
+;;Also, you could define keys to toggle it,
+      ;; (define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle) 
+;      (define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
+
+;;  (require 'dired-details)
+;;  (dired-details-install)
+(put 'dired-find-alternate-file 'disabled nil)
+
+(require 'package)
+(push '("marmalade" . "http://marmalade-repo.org/packages/")
+      package-archives )
+(push '("melpa" . "http://melpa.milkbox.net/packages/")
+      package-archives)
+(package-initialize)
+
+;; close sroll-bar tool-bar menu-bar
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+;; (global-set-key "\C-c\C-m" 'execute-extended-command) 
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\M-r" 'isearch-backward-regexp)
+(global-set-key "\M-s" 'isearch-forward-regexp)
+;; (global-set-key "\C-c\C-k" 'kill-region)
+;(require 'csv-mode)			
+(xterm-mouse-mode 1)
+(ansi-color-for-comint-mode-on)
  
 ;; don't understand
 ;; open those functions
@@ -44,14 +84,6 @@
 (delete-selection-mode t)             ;; typed text replaces the selection if the selection is active
 ; (global-set-key "\M-/" 'hippie-expand) 
 (add-to-list 'load-path "c:/Users/jiayuehua/Downloads/baidu/mysoftware/emacs-24.1/emacs-lisp")
-(put 'dired-find-alternate-file 'disabled nil) ;;not replace dired buffer
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
-(global-set-key "\M-r" 'isearch-backward-regexp)
-(global-set-key "\M-s" 'isearch-forward-regexp)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -80,14 +112,9 @@
 (diary)
 (appt-activate 1)  
 
-;; close sroll-bar tool-bar menu-bar
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 (global-set-key [f5] 'call-last-kbd-macro)
 
-(put 'dired-find-alternate-file 'disabled nil)
 ;(server-start)
 (put 'downcase-region 'disabled nil)
 (add-to-list 'load-path "/home/jiayuehua")
@@ -203,8 +230,6 @@
 (global-font-lock-mode t)               ;syntax on
 
 ;; (put 'LaTeX-hide-environment 'disabled nil) ;jia
-(setq dired-recursive-copies t)         ; 可以递归的进行拷贝
-(setq dired-recursive-deletes t)        ; 可以递归的删除目录
 ;; (mapcar                                 ;set auto-mode-alist ;jia
 ;;  (function (lambda (setting)
 ;; 	     (setq auto-mode-alist
@@ -229,16 +254,6 @@
 (xterm-mouse-mode 1)
  
 
-;; **********org mode 
-
- ;; (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
- ;; (global-set-key "\C-cl" 'org-store-link)
- ;; (global-set-key "\C-ca" 'org-agenda)
- ;; (global-set-key "\C-cb" 'org-iswitchb)
-
-;; ^^^^^^^^^^org mode
-; (setq org-default-notes-file "~/.notes.org")
- ;    (define-key global-map "\C-cc" 'org-capture)
 
 
 ;;自动补全括号
@@ -273,46 +288,46 @@
 ;;     (global-set-key [(meta f3)] 'highlight-symbol-prev)
 
 ;; ;; windmove   ************************
-;;     (require 'windmove) 
-;;     (windmove-default-keybindings) 
+    (require 'windmove) 
+    (windmove-default-keybindings)      
 
-;;     ;; modified from windmove-do-window-select
-;;     (defun windmove-do-swap-window (dir &optional arg window)
-;;       "Move the buffer to the window at direction DIR.
-;;     DIR, ARG, and WINDOW are handled as by `windmove-other-window-loc'.
-;;     If no window is at direction DIR, an error is signaled."
-;;       (let ((other-window (windmove-find-other-window dir arg window)))
-;;         (cond ((null other-window)
-;;                (error "No window %s from selected window" dir))
-;;               ((and (window-minibuffer-p other-window)
-;;                     (not (minibuffer-window-active-p other-window)))
-;;                (error "Minibuffer is inactive"))
-;;               (t
-;;                (let ( (old-buffer (window-buffer window)) )
-;;                  (set-window-buffer window (window-buffer other-window))
-;;                  (set-window-buffer other-window old-buffer)
-;;                  (select-window other-window))))))
+    ;; modified from windmove-do-window-select
+    (defun windmove-do-swap-window (dir &optional arg window)
+      "Move the buffer to the window at direction DIR.
+    DIR, ARG, and WINDOW are handled as by `windmove-other-window-loc'.
+    If no window is at direction DIR, an error is signaled."
+      (let ((other-window (windmove-find-other-window dir arg window)))
+        (cond ((null other-window)
+               (error "No window %s from selected window" dir))
+              ((and (window-minibuffer-p other-window)
+                    (not (minibuffer-window-active-p other-window)))
+               (error "Minibuffer is inactive"))
+              (t
+               (let ( (old-buffer (window-buffer window)) )
+                 (set-window-buffer window (window-buffer other-window))
+                 (set-window-buffer other-window old-buffer)
+                 (select-window other-window))))))
 
-;;     (defun hsb-swap-buffer-up (&optional arg)
-;;       (interactive "P")
-;;       (windmove-do-swap-window 'up arg))
+    (defun hsb-swap-buffer-up (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'up arg))
 
-;;     (defun hsb-swap-buffer-down (&optional arg)
-;;       (interactive "P")
-;;       (windmove-do-swap-window 'down arg))
+    (defun hsb-swap-buffer-down (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'down arg))
 
-;;     (defun hsb-swap-buffer-left (&optional arg)
-;;       (interactive "P")
-;;       (windmove-do-swap-window 'left arg))
+    (defun hsb-swap-buffer-left (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'left arg))
 
-;;     (defun hsb-swap-buffer-right (&optional arg)
-;;       (interactive "P")
-;;       (windmove-do-swap-window 'right arg))
+    (defun hsb-swap-buffer-right (&optional arg)
+      (interactive "P")
+      (windmove-do-swap-window 'right arg))
 
-;;     (global-set-key (kbd "<C-up>")    'hsb-swap-buffer-up)
-;;     (global-set-key (kbd "<C-down>") 'hsb-swap-buffer-down)
-;;     (global-set-key (kbd "<C-left>")   'hsb-swap-buffer-left)
-;;     (global-set-key (kbd "<C-right>") 'hsb-swap-buffer-right)
+    (global-set-key (kbd "<C-up>")    'hsb-swap-buffer-up)
+    (global-set-key (kbd "<C-down>") 'hsb-swap-buffer-down)
+    (global-set-key (kbd "<C-left>")   'hsb-swap-buffer-left)
+    (global-set-key (kbd "<C-right>") 'hsb-swap-buffer-right)
 ;; ;; windmove ^^^^^^^^^^^^^^^^^^^^^^^
 
 ;; (defun my-clear ()
@@ -324,44 +339,18 @@
 ;;       (local-set-key "\C-cl" 'my-clear))
 ;;     (add-hook 'shell-mode-hook 'my-shell-hook)
 
-;; (require 'dired-x) ; 有些特殊的功能  ,! command on the fire
-;; (global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
-;; (require 'w32-browser)
-;; (eval-after-load "dired"
-;; '(define-key dired-mode-map [f4] (lambda ()
-;; (interactive)
-;; (w32-browser
-;; (dired-replace-in-string
-;; "/" "\\"
-;; (dired-get-filename))))))
-
-;; (require 'dired-isearch)
 
 ;; Recommended keybindings:
-; (define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
-; (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
-; (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
-; (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
-;; ~/.emacs:
-        ;; (require 'dired-view)           
-;;To enable it by default,                
-;      (add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 
-;;Also, you could define keys to toggle it,
-      ;; (define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle) 
-;      (define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
-
-;;  (require 'dired-details)
-;;  (dired-details-install)
 ;; (autoload 'nc "nc" "Emuliate MS-DOG file shell" t)
 
 ;; (require 'sunrise-commander)
 ;; (require 'sunrise-x-buttons)
-;; (require 'package)
-;; (push '("marmalade" . "http://marmalade-repo.org/packages/")
-;;       package-archives )
-;; (push '("melpa" . "http://melpa.milkbox.net/packages/")
-;;       package-archives)
-;; (package-initialize)
+
+;; ******************************************
+;;          NOT USE FREQUENTLY
+;; ******************************************
+
+;; ******** helm ******
 ; (require 'helm-config)    
 ; (helm-mode 1)
 ;; (require 'helm-config)                  
@@ -389,3 +378,13 @@
 ;;       helm-ff-file-name-history-use-recentf t)
 
 ;; (helm-mode 1)
+;; ^^^^^^^^ helm ^^^^^^
+
+;; **********org mode 
+; (setq org-default-notes-file "~/.notes.org")
+ ;    (define-key global-map "\C-cc" 'org-capture)
+ ;; (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+ ;; (global-set-key "\C-cl" 'org-store-link)
+ ;; (global-set-key "\C-ca" 'org-agenda)
+ ;; (global-set-key "\C-cb" 'org-iswitchb)
+;; ^^^^^^^^^^org mode
