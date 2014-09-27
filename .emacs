@@ -30,6 +30,12 @@
 
  (require 'dired-details)
  (dired-details-install)
+(require 'package)
+(push '("marmalade" . "http://marmalade-repo.org/packages/")
+      package-archives )
+(push '("melpa" . "http://melpa.milkbox.net/packages/")
+      package-archives)
+(package-initialize)
 
 ;; close sroll-bar tool-bar menu-bar
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
