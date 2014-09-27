@@ -1,25 +1,9 @@
-;;dired
+(add-to-list 'load-path "c:/Users/jiayuehua/cloud/software/emacs-25.1/emacs-lisp")
 (setq dired-recursive-copies t)         ; 可以递归的进行拷贝
 (setq dired-recursive-deletes t)        ; 可以递归的删除目录
-(global-set-key "\C-x\C-j" 'dired-jump) 
-(require 'dired-x) ; 有些特殊的功能
-;(setq dired-guess-shell-alist-user
-;(list
-;(list "\\.chm$" "xchm")
-;(list "\\.rm$" "gmplayer")
-;(list "\\.rmvb$" "gmplayer")
-;(list "\\.avi$" "gmplayer")
-;(list "\\.asf$" "gmplayer")
-;(list "\\.wmv$" "gmplayer")
-;(list "\\.htm$" "w3m")
-;(list "\\.html$" "w3m")
-;(list "\\.mpg$" "gmplayer")
-;)
-;) ; 设置一些文件的默认打开方式，此功能必须在(require 'dired-x)之后
-(global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
 (put 'dired-find-alternate-file 'disabled nil) ;;not replace dired buffer
-;; (require 'dired-x) ; 有些特殊的功能  ,! command on the fire
-;; (global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
+(require 'dired-x) ; 有些特殊的功能  ,! command on the fire
+(global-set-key "\C-x\C-j" 'dired-jump) ; 通过 C-x C-j 跳转到当前目录的 Dired
 
 ;; (require 'w32-browser)
 ;; (eval-after-load "dired"
@@ -30,29 +14,22 @@
 ;; "/" "\\"
 ;; (dired-get-filename))))))
 
-;; (require 'dired-isearch)
-; (define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
-; (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
-; (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
-; (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
-;; ~/.emacs:
-        ;; (require 'dired-view)           
+(require 'dired-isearch)
+
+;; Recommended keybindings:
+ (define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
+ (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
+ (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
+ (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
+       (require 'dired-view)
 ;;To enable it by default,                
 ;      (add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 
 ;;Also, you could define keys to toggle it,
-      ;; (define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle) 
-;      (define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
+      (define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle)
+      (define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
 
-;;  (require 'dired-details)
-;;  (dired-details-install)
-(put 'dired-find-alternate-file 'disabled nil)
-
-(require 'package)
-(push '("marmalade" . "http://marmalade-repo.org/packages/")
-      package-archives )
-(push '("melpa" . "http://melpa.milkbox.net/packages/")
-      package-archives)
-(package-initialize)
+ (require 'dired-details)
+ (dired-details-install)
 
 ;; close sroll-bar tool-bar menu-bar
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -62,12 +39,11 @@
 ;; (global-set-key "\C-c\C-m" 'execute-extended-command) 
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
+;; (global-set-key "\C-c\C-k" 'kill-region)
 (global-set-key "\M-r" 'isearch-backward-regexp)
 (global-set-key "\M-s" 'isearch-forward-regexp)
 ;; (global-set-key "\C-c\C-k" 'kill-region)
 ;(require 'csv-mode)			
-(xterm-mouse-mode 1)
-(ansi-color-for-comint-mode-on)
  
 ;; don't understand
 ;; open those functions
@@ -92,7 +68,7 @@
  ;; If there is more than one, they won't work right.
  '(c-basic-offset 4)
  '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
- '(ede-project-directories (quote ("c:/Users/jiayuehua.DANGDANG" "G:/f/work/VC/tinyxml")))
+ '(ede-project-directories (quote ("c:/Users/jiayuehua" "G:/f/work/VC/tinyxml")))
  '(evil-auto-indent t)
  '(evil-shift-width 2)
  '(evil-want-C-u-scroll t)
@@ -115,10 +91,9 @@
 
 (global-set-key [f5] 'call-last-kbd-macro)
 
-;(server-start)
+(server-start)
 (put 'downcase-region 'disabled nil)
 (add-to-list 'load-path "/home/jiayuehua")
-;(require 'gmail)
 
 (ffap-bindings)             
 ; wang ying emacs configure file
@@ -130,91 +105,91 @@
 ;(require 'ibuffer)                      
 ;(global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; (require 'browse-kill-ring)             
-;; (global-set-key [(control c)(k)] 'browse-kill-ring)
-;; (browse-kill-ring-default-keybindings)
+(require 'browse-kill-ring)
+(global-set-key [(control c)(k)] 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
 
-;; (require 'tabbar)
-;; (tabbar-mode)
+(require 'tabbar)
+(tabbar-mode)
 
-;; ;;hide region
-;; (require 'hide-region)
-;; (global-set-key (kbd "C-c r") 'hide-region-hide)
-;; (global-set-key (kbd "C-c R") 'hide-region-unhide)
+;;hide region
+(require 'hide-region)
+(global-set-key (kbd "C-c r") 'hide-region-hide)
+(global-set-key (kbd "C-c R") 'hide-region-unhide)
 
-;; ;; hide lines
-;; (require 'hide-lines)
-;; (global-set-key (kbd "C-c l") 'hide-lines)
-;; (global-set-key (kbd "C-c L") 'show-all-invisible)
+;; hide lines
+(require 'hide-lines)
+(global-set-key (kbd "C-c l") 'hide-lines)
+(global-set-key (kbd "C-c L") 'show-all-invisible)
 
-;(require 'recentf)
-;(recentf-mode 1)
-;(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(require 'recentf)
+(recentf-mode 1)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-;; ;; swbuff prior:PgUp next:PgDn
-;; (require 'swbuff)
-;; (global-set-key [C-prior] 'swbuff-switch-to-previous-buffer)
-;; (global-set-key [C-next] 'swbuff-switch-to-next-buffer)
-;; (setq swbuff-exclude-buffer-regexps 
-;;      '("^ " "\\*.*\\*"))
-;; (setq swbuff-status-window-layout 'scroll)
-;; (setq swbuff-clear-delay 1)
-;; (setq swbuff-separator "|")
-;; (setq swbuff-window-min-text-height 1)
+;; swbuff prior:PgUp next:PgDn
+(require 'swbuff)
+(global-set-key [C-prior] 'swbuff-switch-to-previous-buffer)
+(global-set-key [C-next] 'swbuff-switch-to-next-buffer)
+(setq swbuff-exclude-buffer-regexps 
+     '("^ " "\\*.*\\*"))
+(setq swbuff-status-window-layout 'scroll)
+(setq swbuff-clear-delay 1)
+(setq swbuff-separator "|")
+(setq swbuff-window-min-text-height 1)
 
-;; ;; match ( with )
-;; (global-set-key "%" 'match-paren)
-;; (defun match-paren (arg)
-;;   "Go to the matching paren if on a paren; otherwise insert %."
-;;   (interactive "p")
-;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-;; 	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-;; 	(t (self-insert-command (or arg 1)))))
-;; ;; jump use C \.
-;; (global-set-key [(control ?\.)] 'ska-point-to-register)
-;; (global-set-key [(control ?\,)] 'ska-jump-to-register)
-;; (defun ska-point-to-register()
-;;   "Store cursorposition _fast_ in a register. 
-;; Use ska-jump-to-register to jump back to the stored 
-;; position."
-;;   (interactive)
-;;   (setq zmacs-region-stays t)
-;;   (point-to-register 8))
+;; match ( with )
+(global-set-key "%" 'match-paren)
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+    ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+    (t (self-insert-command (or arg 1)))))
+;; jump use C \.
+(global-set-key [(control ?\.)] 'ska-point-to-register)
+(global-set-key [(control ?\,)] 'ska-jump-to-register)
+(defun ska-point-to-register()
+  "Store cursorposition _fast_ in a register. 
+Use ska-jump-to-register to jump back to the stored 
+position."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (point-to-register 8))
 
-;; (defun ska-jump-to-register()
-;;   "Switches between current cursorposition and position
-;; that was stored with ska-point-to-register."
-;;   (interactive)
-;;   (setq zmacs-region-stays t)
-;;   (let ((tmp (point-marker)))
-;;         (jump-to-register 8)
-;;         (set-register 8 tmp)))
+(defun ska-jump-to-register()
+  "Switches between current cursorposition and position
+that was stored with ska-point-to-register."
+  (interactive)
+  (setq zmacs-region-stays t)
+  (let ((tmp (point-marker)))
+        (jump-to-register 8)
+        (set-register 8 tmp)))
 
-;; ;; C-c a go-to-char
-;; (defun wy-go-to-char (n char)
-;;   "Move forward to Nth occurence of CHAR.
-;; Typing `wy-go-to-char-key' again will move forwad to the next Nth
-;; occurence of CHAR."
-;;   (interactive "p\ncGo to char: ")
-;;   (search-forward (string char) nil nil n)
-;;   (while (char-equal (read-char)
-;; 		     char)
-;;     (search-forward (string char) nil nil n))
-;;   (setq unread-command-events (list last-input-event)))
-;; (define-key global-map (kbd "C-c a") 'wy-go-to-char)
+;; C-c a go-to-char
+(defun wy-go-to-char (n char)
+  "Move forward to Nth occurence of CHAR.
+Typing `wy-go-to-char-key' again will move forwad to the next Nth
+occurence of CHAR."
+  (interactive "p\ncGo to char: ")
+  (search-forward (string char) nil nil n)
+  (while (char-equal (read-char)
+             char)
+    (search-forward (string char) nil nil n))
+  (setq unread-command-events (list last-input-event)))
+(define-key global-map (kbd "C-c a") 'wy-go-to-char)
 
-;; (setq visible-bell t)                   ;close bell when error happens
-;; (setq inhibit-startup-message t)        ;close initial message
-;; (setq mouse-yank-at-point t)            ;
-;; (setq column-number-mode t)             ;display column number
-;; (setq kill-ring-max 200)                ;set kill ring max to 200
-;; (setq default-fill-column 60)           ;set fill column to 60 
+(setq visible-bell t)                   ;close bell when error happens
+(setq inhibit-startup-message t)        ;close initial message
+(setq mouse-yank-at-point t)            ;
+(setq column-number-mode t)             ;display column number
+(setq kill-ring-max 200)                ;set kill ring max to 200
+(setq default-fill-column 60)           ;set fill column to 60 
 
 (setq-default indent-tabs-mode nil)     ;Not use TAB indent
-(setq default-tab-width 2)
-;; (setq tab-stop-list ())
-;; (loop for x downfrom 80 to 1 do
-;;       (setq tab-stop-list (cons (* x 2) tab-stop-list)))
+(setq default-tab-width 8)
+(setq tab-stop-list ())
+(loop for x downfrom 40 to 1 do
+      (setq tab-stop-list (cons (* x 4) tab-stop-list)))
 (setq enable-recursive-minibuffers t)   ;recursive use minibuf
 (setq scroll-margin 3                   ;prevent scroll margin jump
       scroll-conservatively 10000)
@@ -229,20 +204,20 @@
 (auto-image-file-mode)
 (global-font-lock-mode t)               ;syntax on
 
-;; (put 'LaTeX-hide-environment 'disabled nil) ;jia
-;; (mapcar                                 ;set auto-mode-alist ;jia
-;;  (function (lambda (setting)
-;; 	     (setq auto-mode-alist
-;; 		   (cons setting auto-mode-alist))))
-;;  '(("\\.xml$".  sgml-mode)
-;;    ("\\\.bash" . sh-mode)
-;;    ("\\.rdf$".  sgml-mode)
-;;    ("\\.session" . emacs-lisp-mode)
-;;    ("\\.l$" . c-mode)
-;;    ("\\.css$" . css-mode)
-;;    ("\\.cfm$" . html-mode)
-;;    ("gnus" . emacs-lisp-mode)
-;;    ("\\.idl$" . idl-mode)))
+(put 'LaTeX-hide-environment 'disabled nil)
+(mapcar                                 ;set auto-mode-alist
+ (function (lambda (setting)
+	     (setq auto-mode-alist
+		   (cons setting auto-mode-alist))))
+ '(("\\.xml$".  sgml-mode)
+   ("\\\.bash" . sh-mode)
+   ("\\.rdf$".  sgml-mode)
+   ("\\.session" . emacs-lisp-mode)
+   ("\\.l$" . c-mode)
+   ("\\.css$" . css-mode)
+   ("\\.cfm$" . html-mode)
+   ("gnus" . emacs-lisp-mode)
+   ("\\.idl$" . idl-mode)))
 
 (setq user-full-name "jiayuehua")
 (setq user-mail-address "jiayuehua@gmail.com")
@@ -252,9 +227,6 @@
 ;----------------jia----------
 (ansi-color-for-comint-mode-on)
 (xterm-mouse-mode 1)
- 
-
-
 
 ;;自动补全括号
 (defun my-c-mode-auto-pair ()
@@ -280,16 +252,15 @@
     (align-regexp start end 
         (concat "\\(\\s-*\\)" regexp) 1 1 t))
 
-;; ;(add-to-list 'load-path "/path/to/highlight-symbol")
-;;     (require 'highlight-symbol)
-;;     (global-set-key [(control f3)] 'highlight-symbol-at-point)
-;;     (global-set-key [f3] 'highlight-symbol-next)
-;;     (global-set-key [(shift f3)] 'highlight-symbol-prev)
-;;     (global-set-key [(meta f3)] 'highlight-symbol-prev)
+    (require 'highlight-symbol)
+    (global-set-key [(control f3)] 'highlight-symbol-at-point)
+    (global-set-key [f3] 'highlight-symbol-next)
+    (global-set-key [(shift f3)] 'highlight-symbol-prev)
+    (global-set-key [(meta f3)] 'highlight-symbol-prev)
 
-;; ;; windmove   ************************
+;; windmove   ************************
     (require 'windmove) 
-    (windmove-default-keybindings)      
+     (windmove-default-keybindings)      
 
     ;; modified from windmove-do-window-select
     (defun windmove-do-swap-window (dir &optional arg window)
@@ -330,21 +301,21 @@
     (global-set-key (kbd "<C-right>") 'hsb-swap-buffer-right)
 ;; ;; windmove ^^^^^^^^^^^^^^^^^^^^^^^
 
-;; (defun my-clear ()
-;;   (interactive)
-;;   (let ((comint-buffer-maximum-size 0))
-;;     (comint-truncate-buffer)))
+(defun my-clear ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
 
-;;     (defun my-shell-hook ()
-;;       (local-set-key "\C-cl" 'my-clear))
-;;     (add-hook 'shell-mode-hook 'my-shell-hook)
+    (defun my-shell-hook ()
+      (local-set-key "\C-cl" 'my-clear))
+    (add-hook 'shell-mode-hook 'my-shell-hook)
 
 
 ;; Recommended keybindings:
 ;; (autoload 'nc "nc" "Emuliate MS-DOG file shell" t)
 
-;; (require 'sunrise-commander)
-;; (require 'sunrise-x-buttons)
+(require 'sunrise-commander)
+(require 'sunrise-x-buttons)
 
 ;; ******************************************
 ;;          NOT USE FREQUENTLY
@@ -388,3 +359,17 @@
  ;; (global-set-key "\C-ca" 'org-agenda)
  ;; (global-set-key "\C-cb" 'org-iswitchb)
 ;; ^^^^^^^^^^org mode
+;(require 'gmail)
+;(setq dired-guess-shell-alist-user
+;(list
+;(list "\\.chm$" "xchm")
+;(list "\\.rm$" "gmplayer")
+;(list "\\.rmvb$" "gmplayer")
+;(list "\\.avi$" "gmplayer")
+;(list "\\.asf$" "gmplayer")
+;(list "\\.wmv$" "gmplayer")
+;(list "\\.htm$" "w3m")
+;(list "\\.html$" "w3m")
+;(list "\\.mpg$" "gmplayer")
+;)
+;) ; 设置一些文件的默认打开方式，此功能必须在(require 'dired-x)之后
