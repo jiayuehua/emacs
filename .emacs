@@ -96,7 +96,7 @@
 
 (global-set-key [f5] 'call-last-kbd-macro)
 
-(server-start)
+;; (server-start)                          
 (put 'downcase-region 'disabled nil)
 (add-to-list 'load-path "/home/jiayuehua")
 
@@ -127,14 +127,19 @@
 (global-set-key (kbd "C-c l") 'hide-lines)
 (global-set-key (kbd "C-c L") 'show-all-invisible)
 
-(require 'recentf)
-(recentf-mode 1)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+;; (require 'recentf)
+;; (recentf-mode 1)
+;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(global-set-key "\C-x\C-i" 'bs-show)    ;; or another key
+;; (global-set-key "\M-p"  'bs-cycle-previous)
+;; (global-set-key "\M-n"  'bs-cycle-next)
 
 ;; swbuff prior:PgUp next:PgDn
 (require 'swbuff)
-(global-set-key [C-prior] 'swbuff-switch-to-previous-buffer)
-(global-set-key [C-next] 'swbuff-switch-to-next-buffer)
+(global-set-key "\M-n" 'swbuff-switch-to-next-buffer)
+(global-set-key "\M-p" 'swbuff-switch-to-previous-buffer)
+;(global-set-key [C-prior] 'swbuff-switch-to-previous-buffer)
+;(global-set-key [C-next] 'swbuff-switch-to-next-buffer)
 (setq swbuff-exclude-buffer-regexps 
      '("^ " "\\*.*\\*"))
 (setq swbuff-status-window-layout 'scroll)
