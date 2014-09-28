@@ -1,4 +1,4 @@
-(add-to-list 'load-path "c:/Users/jiayuehua/cloud/software/emacs-25.1/emacs-lisp")
+(add-to-list 'load-path "~/mygit/emacs")
 (setq dired-recursive-copies t)         ; 可以递归的进行拷贝
 (setq dired-recursive-deletes t)        ; 可以递归的删除目录
 (put 'dired-find-alternate-file 'disabled nil) ;;not replace dired buffer
@@ -64,8 +64,7 @@
 (global-set-key "\C-cc" 'remember) ;;remember text
 (winner-mode t)                    ;;remember window position
 (delete-selection-mode t)             ;; typed text replaces the selection if the selection is active
-; (global-set-key "\M-/" 'hippie-expand) 
-(add-to-list 'load-path "c:/Users/jiayuehua/Downloads/baidu/mysoftware/emacs-24.1/emacs-lisp")
+(global-set-key "\M-/" 'hippie-expand) 
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -228,8 +227,9 @@ occurence of CHAR."
 (setq user-full-name "jiayuehua")
 (setq user-mail-address "jiayuehua@gmail.com")
 
-;; (require 'ctypes)                       
-;; (ctypes-auto-parse-mode 1)
+(require 'ctypes)                       
+(ctypes-auto-parse-mode 1)
+
 ;----------------jia----------
 (ansi-color-for-comint-mode-on)
 (xterm-mouse-mode 1)
