@@ -1,5 +1,6 @@
 #!/bin/bash
-cd ~/github/emacs
+
+cd ~/.emacs.d/emacs
 for i in "$@"
 do
   echo ${i}.el
