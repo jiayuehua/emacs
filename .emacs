@@ -1,4 +1,15 @@
-(add-to-list 'load-path "~/mygit/emacs")
+(add-to-list 'load-path "~/.emacs.d/emacs")
+(add-to-list 'load-path "~/.emacs.d/el-get")
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+
 (setq dired-recursive-copies t)         ; 可以递归的进行拷贝
 (setq dired-recursive-deletes t)        ; 可以递归的删除目录
 (put 'dired-find-alternate-file 'disabled nil) ;;not replace dired buffer
@@ -17,19 +28,19 @@
 (require 'dired-isearch)
 
 ;; Recommended keybindings:
- (define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
- (define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
- (define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
- (define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
-       (require 'dired-view)
+(define-key dired-mode-map (kbd "C-s") 'dired-isearch-forward)
+(define-key dired-mode-map (kbd "C-r") 'dired-isearch-backward)
+(define-key dired-mode-map (kbd "ESC C-s") 'dired-isearch-forward-regexp)
+(define-key dired-mode-map (kbd "ESC C-r") 'dired-isearch-backward-regexp)
+(require 'dired-view)
 ;;To enable it by default,                
-;      (add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 
+;;      (add-hook 'dired-mode-hook 'dired-view-minor-mode-on) 
 ;;Also, you could define keys to toggle it,
-      (define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle)
-      (define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
+(define-key dired-mode-map (kbd ";") 'dired-view-minor-mode-toggle)
+(define-key dired-mode-map (kbd ":") 'dired-view-minor-mode-dired-toggle)
 
- (require 'dired-details)
- (dired-details-install)
+(require 'dired-details)
+(dired-details-install)
 (require 'package)
 (push '("marmalade" . "http://marmalade-repo.org/packages/")
       package-archives )
@@ -49,8 +60,8 @@
 (global-set-key "\M-r" 'isearch-backward-regexp)
 (global-set-key "\M-s" 'isearch-forward-regexp)
 ;; (global-set-key "\C-c\C-k" 'kill-region)
-;(require 'csv-mode)			
- 
+;;(require 'csv-mode)			
+
 ;; don't understand
 ;; open those functions
 (put 'upcase-region 'disabled nil)
@@ -101,14 +112,11 @@
 (add-to-list 'load-path "/home/jiayuehua")
 
 (ffap-bindings)             
-; wang ying emacs configure file
-; session
-;(require 'session)
- ; (add-hook 'after-init-hook 'session-initialize)
+;; wang ying emacs configure file
+;; session
+;;(require 'session)
+;; (add-hook 'after-init-hook 'session-initialize)
 
-;ibuffer
-;(require 'ibuffer)                      
-;(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (require 'browse-kill-ring)
 (global-set-key [(control c)(k)] 'browse-kill-ring)
@@ -138,10 +146,10 @@
 (require 'swbuff)
 (global-set-key "\M-n" 'swbuff-switch-to-next-buffer)
 (global-set-key "\M-p" 'swbuff-switch-to-previous-buffer)
-;(global-set-key [C-prior] 'swbuff-switch-to-previous-buffer)
-;(global-set-key [C-next] 'swbuff-switch-to-next-buffer)
+;;(global-set-key [C-prior] 'swbuff-switch-to-previous-buffer)
+;;(global-set-key [C-next] 'swbuff-switch-to-next-buffer)
 (setq swbuff-exclude-buffer-regexps 
-     '("^ " "\\*.*\\*"))
+      '("^ " "\\*.*\\*"))
 (setq swbuff-status-window-layout 'scroll)
 (setq swbuff-clear-delay 1)
 (setq swbuff-separator "|")
@@ -153,8 +161,8 @@
   "Go to the matching paren if on a paren; otherwise insert %."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-    ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-    (t (self-insert-command (or arg 1)))))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
 ;; jump use C \.
 (global-set-key [(control ?\.)] 'ska-point-to-register)
 (global-set-key [(control ?\,)] 'ska-jump-to-register)
@@ -172,8 +180,8 @@ that was stored with ska-point-to-register."
   (interactive)
   (setq zmacs-region-stays t)
   (let ((tmp (point-marker)))
-        (jump-to-register 8)
-        (set-register 8 tmp)))
+    (jump-to-register 8)
+    (set-register 8 tmp)))
 
 ;; C-c a go-to-char
 (defun wy-go-to-char (n char)
@@ -183,7 +191,7 @@ occurence of CHAR."
   (interactive "p\ncGo to char: ")
   (search-forward (string char) nil nil n)
   (while (char-equal (read-char)
-             char)
+                     char)
     (search-forward (string char) nil nil n))
   (setq unread-command-events (list last-input-event)))
 (define-key global-map (kbd "C-c a") 'wy-go-to-char)
@@ -235,7 +243,7 @@ occurence of CHAR."
 (require 'ctypes)                       
 (ctypes-auto-parse-mode 1)
 
-;----------------jia----------
+;;----------------jia----------
 (ansi-color-for-comint-mode-on)
 (xterm-mouse-mode 1)
 
@@ -244,10 +252,10 @@ occurence of CHAR."
   (interactive)
   (make-local-variable 'skeleton-pair-alist)
   (setq skeleton-pair-alist  '(
-                   (?` ?` _ "''")
-                   (?\( ?  _ " )")
-                   (?\[ ?  _ " ]")
-                   (?{ \n > _ \n ?} >)))
+                               (?` ?` _ "''")
+                               (?\( ?  _ " )")
+                               (?\[ ?  _ " ]")
+                               (?{ \n > _ \n ?} >)))
   (setq skeleton-pair t)
   (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
   (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
@@ -256,60 +264,60 @@ occurence of CHAR."
 (add-hook 'c-mode-hook 'my-c-mode-auto-pair)
 (add-hook 'c++-mode-hook 'my-c-mode-auto-pair)
 
- (defun align-repeat (start end regexp)
-    "Repeat alignment with respect to 
+(defun align-repeat (start end regexp)
+  "Repeat alignment with respect to 
      the given regular expression."
-    (interactive "r\nsAlign regexp: ")
-    (align-regexp start end 
-        (concat "\\(\\s-*\\)" regexp) 1 1 t))
+  (interactive "r\nsAlign regexp: ")
+  (align-regexp start end 
+                (concat "\\(\\s-*\\)" regexp) 1 1 t))
 
-    (require 'highlight-symbol)
-    (global-set-key [(control f3)] 'highlight-symbol-at-point)
-    (global-set-key [f3] 'highlight-symbol-next)
-    (global-set-key [(shift f3)] 'highlight-symbol-prev)
-    (global-set-key [(meta f3)] 'highlight-symbol-prev)
+(require 'highlight-symbol)
+(global-set-key [(control f3)] 'highlight-symbol-at-point)
+(global-set-key [f3] 'highlight-symbol-next)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [(meta f3)] 'highlight-symbol-prev)
 
 ;; windmove   ************************
-    (require 'windmove) 
-     (windmove-default-keybindings)      
+(require 'windmove) 
+(windmove-default-keybindings)      
 
-    ;; modified from windmove-do-window-select
-    (defun windmove-do-swap-window (dir &optional arg window)
-      "Move the buffer to the window at direction DIR.
+;; modified from windmove-do-window-select
+(defun windmove-do-swap-window (dir &optional arg window)
+  "Move the buffer to the window at direction DIR.
     DIR, ARG, and WINDOW are handled as by `windmove-other-window-loc'.
     If no window is at direction DIR, an error is signaled."
-      (let ((other-window (windmove-find-other-window dir arg window)))
-        (cond ((null other-window)
-               (error "No window %s from selected window" dir))
-              ((and (window-minibuffer-p other-window)
-                    (not (minibuffer-window-active-p other-window)))
-               (error "Minibuffer is inactive"))
-              (t
-               (let ( (old-buffer (window-buffer window)) )
-                 (set-window-buffer window (window-buffer other-window))
-                 (set-window-buffer other-window old-buffer)
-                 (select-window other-window))))))
+  (let ((other-window (windmove-find-other-window dir arg window)))
+    (cond ((null other-window)
+           (error "No window %s from selected window" dir))
+          ((and (window-minibuffer-p other-window)
+                (not (minibuffer-window-active-p other-window)))
+           (error "Minibuffer is inactive"))
+          (t
+           (let ( (old-buffer (window-buffer window)) )
+             (set-window-buffer window (window-buffer other-window))
+             (set-window-buffer other-window old-buffer)
+             (select-window other-window))))))
 
-    (defun hsb-swap-buffer-up (&optional arg)
-      (interactive "P")
-      (windmove-do-swap-window 'up arg))
+(defun hsb-swap-buffer-up (&optional arg)
+  (interactive "P")
+  (windmove-do-swap-window 'up arg))
 
-    (defun hsb-swap-buffer-down (&optional arg)
-      (interactive "P")
-      (windmove-do-swap-window 'down arg))
+(defun hsb-swap-buffer-down (&optional arg)
+  (interactive "P")
+  (windmove-do-swap-window 'down arg))
 
-    (defun hsb-swap-buffer-left (&optional arg)
-      (interactive "P")
-      (windmove-do-swap-window 'left arg))
+(defun hsb-swap-buffer-left (&optional arg)
+  (interactive "P")
+  (windmove-do-swap-window 'left arg))
 
-    (defun hsb-swap-buffer-right (&optional arg)
-      (interactive "P")
-      (windmove-do-swap-window 'right arg))
+(defun hsb-swap-buffer-right (&optional arg)
+  (interactive "P")
+  (windmove-do-swap-window 'right arg))
 
-    (global-set-key (kbd "<C-up>")    'hsb-swap-buffer-up)
-    (global-set-key (kbd "<C-down>") 'hsb-swap-buffer-down)
-    (global-set-key (kbd "<C-left>")   'hsb-swap-buffer-left)
-    (global-set-key (kbd "<C-right>") 'hsb-swap-buffer-right)
+(global-set-key (kbd "<C-up>")    'hsb-swap-buffer-up)
+(global-set-key (kbd "<C-down>") 'hsb-swap-buffer-down)
+(global-set-key (kbd "<C-left>")   'hsb-swap-buffer-left)
+(global-set-key (kbd "<C-right>") 'hsb-swap-buffer-right)
 ;; ;; windmove ^^^^^^^^^^^^^^^^^^^^^^^
 
 (defun my-clear ()
@@ -317,9 +325,9 @@ occurence of CHAR."
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
-    (defun my-shell-hook ()
-      (local-set-key "\C-cl" 'my-clear))
-    (add-hook 'shell-mode-hook 'my-shell-hook)
+(defun my-shell-hook ()
+  (local-set-key "\C-cl" 'my-clear))
+(add-hook 'shell-mode-hook 'my-shell-hook)
 
 
 ;; Recommended keybindings:
@@ -333,8 +341,8 @@ occurence of CHAR."
 ;; ******************************************
 
 ;; ******** helm ******
-; (require 'helm-config)    
-; (helm-mode 1)
+;; (require 'helm-config)    
+;; (helm-mode 1)
 ;; (require 'helm-config)                  
 ;; (require 'helm-grep)
 
@@ -363,24 +371,30 @@ occurence of CHAR."
 ;; ^^^^^^^^ helm ^^^^^^
 
 ;; **********org mode 
-; (setq org-default-notes-file "~/.notes.org")
- ;    (define-key global-map "\C-cc" 'org-capture)
- ;; (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
- ;; (global-set-key "\C-cl" 'org-store-link)
- ;; (global-set-key "\C-ca" 'org-agenda)
- ;; (global-set-key "\C-cb" 'org-iswitchb)
+;; (setq org-default-notes-file "~/.notes.org")
+;;    (define-key global-map "\C-cc" 'org-capture)
+;; (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+;; (global-set-key "\C-cl" 'org-store-link)
+;; (global-set-key "\C-ca" 'org-agenda)
+;; (global-set-key "\C-cb" 'org-iswitchb)
 ;; ^^^^^^^^^^org mode
-;(require 'gmail)
-;(setq dired-guess-shell-alist-user
-;(list
-;(list "\\.chm$" "xchm")
-;(list "\\.rm$" "gmplayer")
-;(list "\\.rmvb$" "gmplayer")
-;(list "\\.avi$" "gmplayer")
-;(list "\\.asf$" "gmplayer")
-;(list "\\.wmv$" "gmplayer")
-;(list "\\.htm$" "w3m")
-;(list "\\.html$" "w3m")
-;(list "\\.mpg$" "gmplayer")
-;)
-;) ; 设置一些文件的默认打开方式，此功能必须在(require 'dired-x)之后
+
+
+;;(require 'gmail)
+;;(setq dired-guess-shell-alist-user
+;;(list
+;;(list "\\.chm$" "xchm")
+;;(list "\\.rm$" "gmplayer")
+;;(list "\\.rmvb$" "gmplayer")
+;;(list "\\.avi$" "gmplayer")
+;;(list "\\.asf$" "gmplayer")
+;;(list "\\.wmv$" "gmplayer")
+;;(list "\\.htm$" "w3m")
+;;(list "\\.html$" "w3m")
+;;(list "\\.mpg$" "gmplayer")
+;;)
+;;) ; 设置一些文件的默认打开方式，此功能必须在(require 'dired-x)之后
+
+;;**********          ibuffer
+;;(require 'ibuffer)                      
+;;(global-set-key (kbd "C-x C-b") 'ibuffer)
